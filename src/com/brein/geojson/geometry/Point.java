@@ -18,7 +18,7 @@ public class Point implements IGeometryObject {
 
     @Override
     public boolean within(final IGeometryObject other) {
-        if (other.getClass().isAssignableFrom(Point.class)) {
+        if (Point.class.isAssignableFrom(other.getClass())) {
             final Point o = (Point) other;
             return this.lat == o.lat && this.lon == o.lon;
         } else {
@@ -28,7 +28,7 @@ public class Point implements IGeometryObject {
 
     @Override
     public boolean encases(final IGeometryObject other) {
-        if (other.getClass().isAssignableFrom(Point.class)) {
+        if (Point.class.isAssignableFrom(other.getClass())) {
             final Point o = (Point) other;
             return this.lat == o.lat && this.lon == o.lon;
         } else {
@@ -42,7 +42,7 @@ public class Point implements IGeometryObject {
 
     @Override
     public double distance(final IGeometryObject other) {
-        if (other.getClass().isAssignableFrom(Point.class)) {
+        if (Point.class.isAssignableFrom(other.getClass())) {
             final Point o = (Point) other;
             return Math.sqrt(Math.pow(this.lat - o.lat, 2) + Math.pow(this.lon - o.lon, 2));
         }

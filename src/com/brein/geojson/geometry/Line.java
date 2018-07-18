@@ -28,7 +28,7 @@ public class Line implements IGeometryObject {
 
     @Override
     public boolean within(final IGeometryObject other) {
-        if (other.getClass().isAssignableFrom(Polygon.class)) {
+        if (Polygon.class.isAssignableFrom(other.getClass())) {
             final Polygon otherPoly = (Polygon) other;
             if (!getEndPoints().get(0).within(otherPoly) || !getEndPoints().get(1).within(otherPoly)) {
                 return false;
@@ -48,10 +48,10 @@ public class Line implements IGeometryObject {
                 }
             }
             return true;
-        } else if (other.getClass().isAssignableFrom(Point.class)) {
+        } else if (Point.class.isAssignableFrom(other.getClass())) {
             final Point otherPoint = (Point) other;
             return getEndPoints().get(0).equals(otherPoint) && getEndPoints().get(1).equals(otherPoint);
-        } else if (other.getClass().isAssignableFrom(Line.class)) {
+        } else if (Line.class.isAssignableFrom(other.getClass())) {
 
             final Line otherLine = (Line) other;
             final Vector2d p = new Vector2d(endPoints.get(0));
@@ -72,7 +72,7 @@ public class Line implements IGeometryObject {
             } else {
                 return false;
             }
-        } else if (other.getClass().isAssignableFrom(GeometryCollection.class)) {
+        } else if (GeometryCollection.class.isAssignableFrom(other.getClass())) {
             return other.encases(this);
         }
         LOGGER.warn("Unsure of class type " + other.getClass());
@@ -81,19 +81,19 @@ public class Line implements IGeometryObject {
 
     @Override
     public boolean encases(final IGeometryObject other) {
-        if (other.getClass().isAssignableFrom(Polygon.class)) {
+        if (Polygon.class.isAssignableFrom(other.getClass())) {
             for (final Line line : ((Polygon) other).getRing()) {
                 if (!this.encases(line)) {
                     return false;
                 }
             }
             return true;
-        } else if (other.getClass().isAssignableFrom(Line.class)) {
+        } else if (Line.class.isAssignableFrom(other.getClass())) {
             return other.within(this);
-        } else if (other.getClass().isAssignableFrom(Point.class)) {
+        } else if (Point.class.isAssignableFrom(other.getClass())) {
             return new Line(Arrays.asList(other.boundingBox().getDownLeft(), other.boundingBox()
                     .getUpRight())).within(this);
-        } else if (other.getClass().isAssignableFrom(GeometryCollection.class)) {
+        } else if (GeometryCollection.class.isAssignableFrom(other.getClass())) {
             return other.within(this);
         }
 

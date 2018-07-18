@@ -31,7 +31,7 @@ public class GeometryCollection implements IGeometryObject {
     public boolean encases(final IGeometryObject other) {
         //warning, this will fail if two polygons encase an object, but neither of them completely encase it by themself
 
-        if (other.getClass().isAssignableFrom(GeometryCollection.class)) {
+        if (GeometryCollection.class.isAssignableFrom(other.getClass())) {
             for (final IGeometryObject otherShape : ((GeometryCollection) other).shapes) {
                 boolean otherShapeEncased = false;
                 for (final IGeometryObject shape : shapes) {

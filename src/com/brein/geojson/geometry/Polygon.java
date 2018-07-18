@@ -34,13 +34,13 @@ public class Polygon implements IGeometryObject {
 
     @Override
     public boolean within(final IGeometryObject other) {
-        if (other.getClass().isAssignableFrom(Point.class)) {
+        if (Point.class.isAssignableFrom(other.getClass())) {
             //if this polygon is just a point, then it may be within the other point
             if (bbox.getDownLeft().distance(bbox.getUpRight()) == 0) {
                 return bbox.getDownLeft().equals(other);
             }
             return false;
-        } else if (other.getClass().isAssignableFrom(Polygon.class)) {
+        } else if (Polygon.class.isAssignableFrom(other.getClass())) {
             final Polygon otherPoly = (Polygon) other;
             final CommonGeoMath.IntersectionType outerRingIntersection =
                     CommonGeoMath.ringPolygonIntersection(getRing(), otherPoly);
@@ -51,7 +51,7 @@ public class Polygon implements IGeometryObject {
 
             //todo: decide on hole logic
             return true;
-        } else if (other.getClass().isAssignableFrom(Line.class)) {
+        } else if (Line.class.isAssignableFrom(other.getClass())) {
             //a polygon can only be within a line if the polygon is just a flat line
             for (final Line l : ring) {
                 if (!l.within(other)) {
@@ -59,7 +59,7 @@ public class Polygon implements IGeometryObject {
                 }
             }
             return true;
-        } else if (other.getClass().isAssignableFrom(GeometryCollection.class)) {
+        } else if (GeometryCollection.class.isAssignableFrom(other.getClass())) {
             return other.encases(this);
         }
         return false;
@@ -67,20 +67,20 @@ public class Polygon implements IGeometryObject {
 
     @Override
     public boolean encases(final IGeometryObject other) {
-        if (other.getClass().isAssignableFrom(Point.class)) {
+        if (Point.class.isAssignableFrom(other.getClass())) {
             final Point otherPoint = (Point) other;
             if (!CommonGeoMath.pointInRing(otherPoint, ring, boundingBox())) {
                 return false;
             }
 
-            for(final List<Line> hole: holes){
-                if(CommonGeoMath.pointInRing(otherPoint, hole, boundingBox())){
+            for (final List<Line> hole : holes) {
+                if (CommonGeoMath.pointInRing(otherPoint, hole, boundingBox())) {
                     return false;
                 }
             }
             return true;
 
-        } else if (other.getClass().isAssignableFrom(Polygon.class)) {
+        } else if (Polygon.class.isAssignableFrom(other.getClass())) {
             final Polygon otherPoly = (Polygon) other;
             final CommonGeoMath.IntersectionType outerRingIntersection =
                     CommonGeoMath.ringPolygonIntersection(getRing(), otherPoly);
@@ -91,9 +91,9 @@ public class Polygon implements IGeometryObject {
 
             //todo: decide on hole logic
             return true;
-        } else if (other.getClass().isAssignableFrom(Line.class)) {
+        } else if (Line.class.isAssignableFrom(other.getClass())) {
             return other.within(this);
-        } else if (other.getClass().isAssignableFrom(GeometryCollection.class)) {
+        } else if (GeometryCollection.class.isAssignableFrom(other.getClass())) {
             return other.within(this);
         }
         return false;

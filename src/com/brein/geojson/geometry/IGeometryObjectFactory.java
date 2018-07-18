@@ -2,7 +2,6 @@ package com.brein.geojson.geometry;
 
 import com.brein.geojson.tools.Constants;
 import com.brein.geojson.tools.GeoJsonException;
-import com.sun.istack.internal.logging.Logger;
 
 import java.util.Collections;
 import java.util.List;
@@ -10,8 +9,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class IGeometryObjectFactory {
-    private static final Logger LOGGER = Logger.getLogger(IGeometryObjectFactory.class);
-
     @SuppressWarnings("unchecked")
     public static IGeometryObject fromGeoJsonMap(final Map<String, Object> in) {
         final String type = (String) in.get(Constants.GEOJSON_TYPE);

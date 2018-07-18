@@ -1,14 +1,16 @@
 package com.brein.geojson.geometry;
 
 import com.brein.geojson.tools.Vector2d;
-import com.sun.istack.internal.logging.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 public class Line implements IGeometryObject {
-    private static final Logger LOGGER = Logger.getLogger(Line.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Line.class);
     private final BoundingBox bbox;
     private final List<Point> endPoints;
 
@@ -66,7 +68,7 @@ public class Line implements IGeometryObject {
         } else if (other.getClass().isAssignableFrom(GeometryCollection.class)) {
             return other.encases(this);
         }
-        LOGGER.warning("Unsure of class type " + other.getClass());
+        LOGGER.warn("Unsure of class type " + other.getClass());
         return false;
     }
 

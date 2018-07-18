@@ -48,15 +48,7 @@ public class BoundingBox {
         return upRight;
     }
 
-    public void setUpRight(final Point upRight) {
-        this.upRight = upRight;
-    }
-
     public Point getDownLeft() {
         return downLeft;
-    }
-
-    public void setDownLeft(final Point downLeft) {
-        this.downLeft = downLeft;
     }
 }

@@ -9,6 +9,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Helper class for a single line, not to be confused with a LineString
+ */
 public class Line implements IGeometryObject {
     private static final Logger LOGGER = LoggerFactory.getLogger(Line.class);
     private final BoundingBox bbox;
@@ -17,6 +20,10 @@ public class Line implements IGeometryObject {
     public Line(final List<Point> endPoints) {
         this.endPoints = endPoints;
         this.bbox = new BoundingBox(endPoints);
+    }
+
+    public Line(final double lat1, final double lon1, final double lat2, final double lon2) {
+        this(Arrays.asList(new Point(lat1, lon1), new Point(lat2, lon2)));
     }
 
     @Override
@@ -126,6 +133,26 @@ public class Line implements IGeometryObject {
 
     public List<Point> getEndPoints() {
         return endPoints;
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        if (other == null || !other.getClass().equals(this.getClass())) {
+            return false;
+        }
+        final Line o = (Line) other;
+        if (o.endPoints.get(0).equals(endPoints.get(0)) && o.endPoints.get(1).equals(endPoints.get(1))) {
+            return true;
+        } else if (o.endPoints.get(0).equals(endPoints.get(1)) && o.endPoints.get(1).equals(endPoints.get(0))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return endPoints.toString();
     }
 
     public boolean intersects(final Line other) {

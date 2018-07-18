@@ -4,12 +4,24 @@ import com.brein.geojson.geometry.IGeometryObject;
 import com.brein.geojson.geometry.IGeometryObjectFactory;
 import com.google.gson.Gson;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class GeoJsonLoader {
+    public static IGeometryObject loadFromResource(final String resourceName) throws IOException {
+        try (final InputStream inStream = GeoJsonLoader.class.getResourceAsStream(resourceName)) {
+            final BufferedReader in = new BufferedReader(new InputStreamReader(inStream));
+
+            return loadFromString(String.join("\n", in.lines().collect(Collectors.toList())));
+        }
+    }
+
     public static IGeometryObject loadFromFile(final String fileName) throws IOException {
         return loadFromFile(new File(fileName));
     }

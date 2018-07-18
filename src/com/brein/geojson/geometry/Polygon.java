@@ -1,8 +1,8 @@
-package com.brein.geogson.geometry;
+package com.brein.geojson.geometry;
 
-import com.brein.geogson.tools.CommonGeoMath;
-import com.brein.geogson.tools.CommonGeoMath.IntersectionType;
-import com.brein.geogson.tools.Constants;
+import com.brein.geojson.tools.CommonGeoMath;
+import com.brein.geojson.tools.CommonGeoMath.IntersectionType;
+import com.brein.geojson.tools.Constants;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package com.brein.geogson.geometry;
+package com.brein.geojson.geometry;
 
 import java.util.Map;
 

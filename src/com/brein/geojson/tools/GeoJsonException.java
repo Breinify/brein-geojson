@@ -1,4 +1,4 @@
-package com.brein.geogson.tools;
+package com.brein.geojson.tools;
 
 public class GeoJsonException extends RuntimeException {
     public GeoJsonException(final String message) {

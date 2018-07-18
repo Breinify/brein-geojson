@@ -1,10 +1,9 @@
-package com.brein.geogson.geometry;
+package com.brein.geojson.geometry;
 
-import com.brein.geogson.tools.Vector2d;
+import com.brein.geojson.tools.Vector2d;
 import com.sun.istack.internal.logging.Logger;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

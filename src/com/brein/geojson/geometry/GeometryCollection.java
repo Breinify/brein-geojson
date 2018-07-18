@@ -1,6 +1,6 @@
-package com.brein.geogson.geometry;
+package com.brein.geojson.geometry;
 
-import com.brein.geogson.tools.Constants;
+import com.brein.geojson.tools.Constants;
 
 import java.util.Arrays;
 import java.util.HashMap;

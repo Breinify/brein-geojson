@@ -1,8 +1,8 @@
-package com.brein.geogson;
+package com.brein.geojson;
 
-import com.brein.geogson.geometry.TestLine;
-import com.brein.geogson.geometry.TestPolygon;
-import com.brein.geogson.tools.TestCommonGeoMath;
+import com.brein.geojson.geometry.TestLine;
+import com.brein.geojson.geometry.TestPolygon;
+import com.brein.geojson.tools.TestCommonGeoMath;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 

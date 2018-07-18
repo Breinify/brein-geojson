@@ -1,9 +1,9 @@
-package com.brein.geogson.tools;
+package com.brein.geojson.tools;
 
-import com.brein.geogson.geometry.BoundingBox;
-import com.brein.geogson.geometry.Line;
-import com.brein.geogson.geometry.Point;
-import com.brein.geogson.geometry.Polygon;
+import com.brein.geojson.geometry.BoundingBox;
+import com.brein.geojson.geometry.Line;
+import com.brein.geojson.geometry.Point;
+import com.brein.geojson.geometry.Polygon;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -1,6 +1,6 @@
-package com.brein.geogson.tools;
+package com.brein.geojson.tools;
 
-import com.brein.geogson.geometry.Point;
+import com.brein.geojson.geometry.Point;
 
 public class Vector2d {
     private final double x;

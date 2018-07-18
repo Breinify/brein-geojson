@@ -1,4 +1,4 @@
-package com.brein.geogson.tools;
+package com.brein.geojson.tools;
 
 public class Constants {
     public static final String GEOJSON_TYPE = "type";

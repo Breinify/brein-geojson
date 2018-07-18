@@ -82,4 +82,21 @@ public class TestCommonGeoMath {
         Assert.assertEquals(new Point((.5 * (.5 / 3 + .5) + .25) / 1.5, 0.5),
                 CommonGeoMath.ringCentroid(squareLessTriangle));
     }
+
+    @Test
+    public void testCornerRingBug() {
+        final List<Line> ring = Polygon.pointsToLine(Arrays.asList(
+                new Point(-.5, -.5),
+                new Point(.5, -.5),
+                new Point(.5, .5),
+                new Point(-.5, .5),
+                new Point(-.5, -.5)
+        ));
+
+        final Point pt = new Point(-1.5,-1.5);
+
+        final BoundingBox bbox = new BoundingBox(new Point(1.5,1.5), pt);
+
+        Assert.assertFalse(CommonGeoMath.pointInRing(pt, ring,bbox));
+    }
 }

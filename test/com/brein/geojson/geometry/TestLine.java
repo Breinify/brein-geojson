@@ -30,6 +30,13 @@ public class TestLine {
         Assert.assertFalse(makeLine(1, 1, 1, 0).intersects(makeLine(1, -.75, 1, -1.25)));
     }
 
+    @Test
+    public void testPointOnLine() {
+        Assert.assertTrue(makeLine(0, 0, 1, 1).encases(new Point(0.5, 0.5)));
+        Assert.assertFalse(makeLine(0, 0, 1, 1).encases(new Point(0.75, 0.5)));
+        Assert.assertTrue(makeLine(0, 0, 1, 1).encases(new Point(0.0, 0.0)));
+    }
+
     public Line makeLine(final double x1, final double y1, final double x2, final double y2) {
         return new Line(Arrays.asList(new Point(x1, y1), new Point(x2, y2)));
     }

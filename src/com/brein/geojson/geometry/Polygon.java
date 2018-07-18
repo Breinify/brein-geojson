@@ -22,14 +22,15 @@ public class Polygon implements IGeometryObject {
     }
 
     public Polygon(final List<Point> ring, final List<List<Point>> holes) {
-        this.ring = pointsToLine(ring);
+        this(pointsToLine(ring),
+                holes.stream().map(Polygon::pointsToLine).collect(Collectors.toList()),
+                new BoundingBox(ring));
+    }
 
-        this.holes = new ArrayList<>();
-        for (final List<Point> hole : holes) {
-            this.holes.add(pointsToLine(hole));
-        }
-
-        this.bbox = new BoundingBox(ring);
+    public Polygon(final List<Line> ring, final List<List<Line>> holes, final BoundingBox bbox) {
+        this.ring = ring;
+        this.holes = holes;
+        this.bbox = bbox;
     }
 
     @Override
@@ -47,6 +48,15 @@ public class Polygon implements IGeometryObject {
             if (outerRingIntersection.equals(IntersectionType.OUTSIDE) ||
                     outerRingIntersection.equals(IntersectionType.PARTIAL)) {
                 return false;
+            }
+
+            for (final List<Line> hole : ((Polygon) other).getHoles()) {
+                final IntersectionType holeIntersection = CommonGeoMath.ringPolygonIntersection(hole, this);
+                //if the hole other object's hole is atleast partially within this polygon
+                if (holeIntersection != IntersectionType.OUTSIDE) {
+                    //then that hole is a place where this polygon isn't in it
+                    return false;
+                }
             }
 
             //todo: decide on hole logic
@@ -81,16 +91,7 @@ public class Polygon implements IGeometryObject {
             return true;
 
         } else if (Polygon.class.isAssignableFrom(other.getClass())) {
-            final Polygon otherPoly = (Polygon) other;
-            final CommonGeoMath.IntersectionType outerRingIntersection =
-                    CommonGeoMath.ringPolygonIntersection(getRing(), otherPoly);
-            if (outerRingIntersection.equals(IntersectionType.INSIDE) ||
-                    outerRingIntersection.equals(IntersectionType.PARTIAL)) {
-                return false;
-            }
-
-            //todo: decide on hole logic
-            return true;
+            return other.within(this);
         } else if (Line.class.isAssignableFrom(other.getClass())) {
             return other.within(this);
         } else if (GeometryCollection.class.isAssignableFrom(other.getClass())) {

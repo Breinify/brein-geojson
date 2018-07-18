@@ -1,5 +1,6 @@
 package com.brein.geojson.geometry;
 
+import com.brein.geojson.tools.CommonGeoMath;
 import com.brein.geojson.tools.Vector2d;
 
 import org.slf4j.Logger;
@@ -63,7 +64,11 @@ public class Line implements IGeometryObject {
             final double qpCrossR = q.subtract(p).cross(r);
             final double rCrossS = r.cross(s);
 
-            if (qpCrossR == 0 && rCrossS == 0) {
+            if (CommonGeoMath.approxEquals(qpCrossR, 0.0) && CommonGeoMath.approxEquals(rCrossS, 0)) {
+                final double rDotR = r.dot(r);
+                if (CommonGeoMath.approxEquals(rDotR, 0.0)) {
+                    return true;
+                }
                 final double t0 = (q.subtract(p)).dot(r) / (r.dot(r));
                 final double t1 = t0 + s.dot(r) / (r.dot(r));
 
@@ -91,8 +96,11 @@ public class Line implements IGeometryObject {
         } else if (Line.class.isAssignableFrom(other.getClass())) {
             return other.within(this);
         } else if (Point.class.isAssignableFrom(other.getClass())) {
-            return new Line(Arrays.asList(other.boundingBox().getDownLeft(), other.boundingBox()
-                    .getUpRight())).within(this);
+            final Point p = (Point) other;
+
+            final double pointDist = p.distance(endPoints.get(0)) + p.distance(endPoints.get(1));
+            final double closestDist = this.length();
+            return CommonGeoMath.approxEquals(pointDist, closestDist);
         } else if (GeometryCollection.class.isAssignableFrom(other.getClass())) {
             return other.within(this);
         }
@@ -167,7 +175,7 @@ public class Line implements IGeometryObject {
         final double qpCrossR = q.subtract(p).cross(r);
         final double rCrossS = r.cross(s);
 
-        if (qpCrossR == 0 && rCrossS == 0) {
+        if (CommonGeoMath.approxEquals(qpCrossR, 0.0) && CommonGeoMath.approxEquals(rCrossS, 0)) {
             double t0 = (q.subtract(p)).dot(r) / (r.dot(r));
             double t1 = t0 + s.dot(r) / (r.dot(r));
 
@@ -178,7 +186,7 @@ public class Line implements IGeometryObject {
             }
 
             return (t1 <= 1 || t0 >= 0) && (!((t1 > 1 && t0 > 1) || (t1 < 0 && t0 < 0)));
-        } else if (rCrossS == 0) {
+        } else if (CommonGeoMath.approxEquals(rCrossS, 0)) {
             return false;
         } else {
             final double u = qpCrossR / rCrossS;

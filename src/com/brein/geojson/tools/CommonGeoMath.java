@@ -11,14 +11,29 @@ import java.util.List;
 
 public class CommonGeoMath {
     public static int pointRingIntersection(final Point point, final List<Line> ring, final BoundingBox ringBBox) {
+        for (final Line ringLine : ring) {
+            if (point.within(ringLine)) {
+                return 1;
+            }
+        }
         //find point outside of ring
         final Point target = new Point(ringBBox.getUpRight().getLat() + 1, ringBBox.getUpRight().getLon() + 1);
         final Line ray = new Line(Arrays.asList(point, target));
 
+        //if we hit a corner of a ring, then we'll count two lines that it hit with
+        boolean intersectingCorner = false;
+
         int intersections = 0;
         for (final Line line : ring) {
             if (line.intersects(ray)) {
-                intersections++;
+                if (line.getEndPoints().get(0).within(ray) || line.getEndPoints().get(1).within(ray)) {
+                    if (intersectingCorner) {
+                        intersections++;
+                    }
+                    intersectingCorner = !intersectingCorner;
+                } else {
+                    intersections++;
+                }
             }
         }
 
@@ -78,7 +93,15 @@ public class CommonGeoMath {
 
         for (final Line ringLine : ring) {
             for (final Line polyLine : allPolyLines) {
-                if (polyLine.intersects(ringLine)) {
+                if (polyLine.intersects(ringLine) && !polyLine.equals(ringLine)) {
+                    if (polyLine.getEndPoints().get(0).equals(ringLine.getEndPoints().get(0)) ||
+                            polyLine.getEndPoints().get(1).equals(ringLine.getEndPoints().get(0)) ||
+                            polyLine.getEndPoints().get(0).equals(ringLine.getEndPoints().get(1)) ||
+                            polyLine.getEndPoints().get(1).equals(ringLine.getEndPoints().get(1))) {
+                        //lines don't actually cross, just touch
+                        continue;
+                    }
+
                     return IntersectionType.PARTIAL;
                 }
             }
@@ -92,9 +115,15 @@ public class CommonGeoMath {
         }
     }
 
+    public static boolean approxEquals(final double d1, final double d2){
+        return Math.abs(d1 - d2) < Constants.EPISILON;
+    }
+
     public enum IntersectionType {
         INSIDE,
         PARTIAL,
         OUTSIDE
     }
+
+
 }

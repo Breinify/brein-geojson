@@ -1,0 +1,39 @@
+<project name="brein-geojson" default="03-wrap-up" basedir=".">
+
+    <!-- This is an internally used build-script. To build the project manually,
+         please resolve the needed dependencies and run the default javac compiler.
+         In addition, the library is available through Maven Central!
+      -->
+    <include file="../brein-workspace/brein-intellij-workspace/common-libs/ant-util/util-ant.xml"/>
+
+    <property name="jarFile" value="brein-geojson-TRUNK-SNAPSHOT.jar"/>
+    <property name="testSuite" value="com.brein.geojson.TestSuite"/>
+
+    <target name="03-wrap-up" depends="02-compile-sources">
+        <build-jar jarFile="${jarFile}"/>
+    </target>
+
+    <target name="02-compile-sources" depends="01-resolve-dependencies">
+        <do-compile-java-default/>
+    </target>
+
+    <target name="01-resolve-dependencies">
+        <resolve-dependencies/>
+    </target>
+
+    <target name="04-publish-results" depends="03-wrap-up">
+        <publish-jar jarFile="${jarFile}"/>
+    </target>
+
+    <target name="05-deploy-to-maven" depends="02-compile-sources">
+        <publish-jar-to-central />
+    </target>
+
+    <target name="06-run-test-suite" depends="02-compile-sources">
+        <do-run-test-suite testSuite="${testSuite}"/>
+    </target>
+
+    <target name="07-run-sonarqube" depends="02-compile-sources">
+        <do-run-qa-suite />
+    </target>
+</project>

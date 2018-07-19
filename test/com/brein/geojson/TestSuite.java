@@ -1,5 +1,6 @@
 package com.brein.geojson;
 
+import com.brein.geojson.geometry.TestGeometryCollection;
 import com.brein.geojson.geometry.TestIGeometryObjectFactory;
 import com.brein.geojson.geometry.TestLine;
 import com.brein.geojson.geometry.TestPolygon;
@@ -14,10 +15,14 @@ import org.junit.runners.Suite;
         TestLine.class,
         TestPolygon.class,
         TestCommonGeoMath.class,
+        TestGeometryCollection.class,
 
         // loading
         TestGeoJsonLoader.class,
-        TestIGeometryObjectFactory.class
+        TestIGeometryObjectFactory.class,
+
+        // tools
+        TestCommonGeoMath.class
 })
 public class TestSuite {
 }

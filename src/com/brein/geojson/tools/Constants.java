@@ -13,5 +13,5 @@ public class Constants {
     public static final String GEOJSON_COORDINATES = "coordinates";
     public static final String GEOJSON_GEOMETRIES = "geometries";
 
-    public static final Double EPISILON = 0.00001;
+    public static final Double EPISILON = 1e-10;
 }

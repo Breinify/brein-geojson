@@ -33,14 +33,14 @@ public class GeometryCollection implements IGeometryObject {
 
         if (GeometryCollection.class.isAssignableFrom(other.getClass())) {
             for (final IGeometryObject otherShape : ((GeometryCollection) other).shapes) {
-                boolean otherShapeEncased = false;
+                boolean insideShape = false;
                 for (final IGeometryObject shape : shapes) {
                     if (shape.encases(otherShape)) {
-                        otherShapeEncased = true;
+                        insideShape = true;
                         break;
                     }
                 }
-                if (!otherShapeEncased) {
+                if (!insideShape) {
                     return false;
                 }
             }

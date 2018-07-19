@@ -116,7 +116,7 @@ public class CommonGeoMath {
     }
 
     public static boolean approxEquals(final double d1, final double d2){
-        return Math.abs(d1 - d2) < Constants.EPISILON;
+        return Math.abs(d1 - d2) < Constants.EPSILON;
     }
 
     public enum IntersectionType {

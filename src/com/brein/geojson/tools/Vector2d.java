@@ -34,4 +34,12 @@ public class Vector2d {
     public double dot(final Vector2d other) {
         return x * other.x + y * other.y;
     }
+
+    public Point toPoint() {
+        return new Point(x, y);
+    }
+
+    public String toString() {
+        return "<" + x + "," + y + ">";
+    }
 }

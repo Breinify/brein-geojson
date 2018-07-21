@@ -110,7 +110,39 @@ public class Line implements IGeometryObject {
 
     @Override
     public double distance(final IGeometryObject other) {
-        return 0;//todo
+        if (Point.class.isAssignableFrom(other.getClass())) {
+            //see https://stackoverflow.com/questions/849211/shortest-distance-between-a-point-and-a-line-segment
+            final Point o = (Point) other;
+            final double length = length();
+            if (CommonGeoMath.approxEquals(length, 0)) {
+                return getEndPoints().get(0).distance(o);
+            }
+            final Vector2d p = new Vector2d(o);
+            final Vector2d end1 = new Vector2d(getEndPoints().get(0));
+            final Vector2d end2 = new Vector2d(getEndPoints().get(1));
+            final double t = Math.max(0, Math.min(1, (p.subtract(end1)).dot(end2.subtract(end1)) / length / length));
+
+            final Vector2d projection = end1.add((end2.subtract(end1).scale(t)));
+
+            return o.distance(projection.toPoint());
+        } else if (Line.class.isAssignableFrom(other.getClass())) {
+            final Line o = (Line) other;
+            if (o.intersects(this)) {
+                return 0;
+            }
+            double min = Double.MAX_VALUE;
+
+            for (int ct = 0; ct < 2; ct++) {
+                min = Math.min(min, o.distance(getEndPoints().get(ct)));
+                min = Math.min(min, this.distance(o.getEndPoints().get(ct)));
+                if (min == 0) {
+                    return 0;
+                }
+            }
+            return min;
+        } else {
+            return other.distance(this);
+        }
     }
 
     @Override

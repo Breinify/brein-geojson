@@ -9,6 +9,12 @@ import java.util.List;
 import java.util.function.Function;
 
 public class TestPolygon {
+    final Function<Double, List<Point>> makeRings = radius ->
+            Arrays.asList(new Point(-radius, -radius),
+                    new Point(radius, -radius),
+                    new Point(radius, radius),
+                    new Point(-radius, radius),
+                    new Point(-radius, -radius));
 
     @Test
     public void testPolyWithHole() {
@@ -55,12 +61,6 @@ public class TestPolygon {
      */
     @Test
     public void testDoughnuts() {
-        final Function<Double, List<Point>> makeRings = radius ->
-                Arrays.asList(new Point(-radius, -radius),
-                        new Point(radius, -radius),
-                        new Point(radius, radius),
-                        new Point(-radius, radius),
-                        new Point(-radius, -radius));
 
         final Polygon bigNoHole = new Polygon(makeRings.apply(1.5), Collections.emptyList());
         final Polygon bigWithHole = new Polygon(makeRings.apply(1.5),
@@ -94,6 +94,49 @@ public class TestPolygon {
         final Polygon square = new Polygon(new Point(-1.5, -1.5), new Point(1.5, -1.5), new Point(1.5, 1.5), new
                 Point(-1.5, 1.5), new Point(-1.5, -1.5));
 
-        Assert.assertTrue(new Point(-1,-1).within(square));
+        Assert.assertTrue(new Point(-1, -1).within(square));
+    }
+
+    @Test
+    public void testPointPolyDistance() {
+        final Polygon bigWithHole = new Polygon(makeRings.apply(1.5),
+                Collections.singletonList(makeRings.apply(0.5)));
+
+        Assert.assertEquals(0, bigWithHole.distance(new Point(1, 1)), 0.0001);
+        Assert.assertEquals(0.5, bigWithHole.distance(new Point(0, 0)), 0.0001);
+        Assert.assertEquals(1, bigWithHole.distance(new Point(2.5, 0)), 0.0001);
+    }
+
+    @Test
+    public void testPolyLineDistance() {
+
+        final Polygon bigWithHole = new Polygon(makeRings.apply(1.5),
+                Collections.singletonList(makeRings.apply(0.5)));
+
+        final Line line = new Line(Arrays.asList(new Point(2, 1), new Point(2, 2)));
+
+        Assert.assertEquals(0.5, bigWithHole.distance(line), 0.0001);
+
+        final Line within = new Line(Arrays.asList(new Point(1, 1), new Point(-1, 1)));
+        Assert.assertEquals(0, bigWithHole.distance(within), 0.0001);
+        Assert.assertEquals(0, within.distance(bigWithHole), 0.0001);
+    }
+
+    @Test
+    public void testPolyPolyDistance() {
+
+        final Polygon bigWithHole = new Polygon(makeRings.apply(1.5),
+                Collections.singletonList(makeRings.apply(0.5)));
+
+        final Polygon triangle = new Polygon(new Point(2.0, 1.0), new Point(2.0, 2.0), new Point(5.0, 1.5), new Point
+                (2.0, 1.0));
+
+        Assert.assertEquals(0.5, bigWithHole.distance(triangle), 0.0001);
+
+        final Polygon smallWithBigHole = new Polygon(makeRings.apply(1.0),
+                Collections.singletonList(makeRings.apply(0.75)));
+
+        Assert.assertEquals(0.0, smallWithBigHole.distance(bigWithHole), 0.0001);
+
     }
 }

@@ -58,7 +58,26 @@ public class GeometryCollection implements IGeometryObject {
 
     @Override
     public double distance(final IGeometryObject other) {
-        return 0;//todo
+        if (GeometryCollection.class.isAssignableFrom(other.getClass())) {
+            double min = Double.MAX_VALUE;
+
+            for (final IGeometryObject o : ((GeometryCollection) other).getShapes()) {
+                min = Math.min(min, distance(o));
+                if (min == 0) {
+                    return min;
+                }
+            }
+            return min;
+        } else {
+            double min = Double.MAX_VALUE;
+            for (final IGeometryObject o : getShapes()) {
+                min = Math.min(min, o.distance(other));
+                if (min == 0) {
+                    return min;
+                }
+            }
+            return min;
+        }
     }
 
     @Override

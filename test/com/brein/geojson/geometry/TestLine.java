@@ -37,6 +37,20 @@ public class TestLine {
         Assert.assertTrue(makeLine(0, 0, 1, 1).encases(new Point(0.0, 0.0)));
     }
 
+    @Test
+    public void testPointLineDistance() {
+        Assert.assertEquals(0, makeLine(0, 0, 2, 2).distance(new Point(1, 1)), 0.001);
+        Assert.assertEquals(Math.sqrt(2), makeLine(0, 0, 2, 2).distance(new Point(-1, -1)), 0.001);
+        Assert.assertEquals(Math.sqrt(2), makeLine(0, 0, 2, 2).distance(new Point(0, 2)), 0.001);
+    }
+
+    @Test
+    public void testLineLineDistance() {
+        Assert.assertEquals(0, makeLine(0, 0, 2, 2).distance(makeLine(2, 0, 0, 2)), 0.001);
+        Assert.assertEquals(0, makeLine(0, 0, 2, 2).distance(makeLine(2, 0, 1, 1)), 0.001);
+        Assert.assertEquals(Math.sqrt(.5 * .5 * 2), makeLine(0, 0, 2, 2).distance(makeLine(0, 1, 2, 3)), 0.0001);
+    }
+
     public Line makeLine(final double x1, final double y1, final double x2, final double y2) {
         return new Line(Arrays.asList(new Point(x1, y1), new Point(x2, y2)));
     }

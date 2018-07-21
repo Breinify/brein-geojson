@@ -45,8 +45,9 @@ public class Point implements IGeometryObject {
         if (Point.class.isAssignableFrom(other.getClass())) {
             final Point o = (Point) other;
             return Math.sqrt(Math.pow(this.lat - o.lat, 2) + Math.pow(this.lon - o.lon, 2));
+        }else{
+            return other.distance(this);
         }
-        return 0;
     }
 
     @Override

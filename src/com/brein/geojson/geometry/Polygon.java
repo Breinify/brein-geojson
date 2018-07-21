@@ -102,7 +102,67 @@ public class Polygon implements IGeometryObject {
 
     @Override
     public double distance(final IGeometryObject other) {
-        return 0;
+        if (other.within(this)) {
+            return 0.0;
+        } else if (Point.class.isAssignableFrom(other.getClass()) || Line.class.isAssignableFrom(other.getClass())) {
+            double min = Double.MAX_VALUE;
+            for (final Line edge : ring) {
+                min = Math.min(min, edge.distance(other));
+                if (min == 0) {
+                    return 0;
+                }
+            }
+
+            for (final List<Line> holeEdges : holes) {
+                for (final Line edge : holeEdges) {
+                    min = Math.min(min, edge.distance(other));
+                    if (min == 0) {
+                        return 0;
+                    }
+                }
+            }
+            return min;
+        } else if (Polygon.class.isAssignableFrom(other.getClass())) {
+            final Polygon p = (Polygon) other;
+
+            double min = Double.MAX_VALUE;
+            for (final Line edge : p.ring) {
+                min = Math.min(min, edge.distance(this));
+                if (min == 0) {
+                    return 0;
+                }
+            }
+
+            for (final List<Line> holeEdges : p.holes) {
+                for (final Line edge : holeEdges) {
+                    min = Math.min(min, edge.distance(this));
+                    if (min == 0) {
+                        return 0;
+                    }
+                }
+            }
+
+            for (final Line edge : ring) {
+                min = Math.min(min, edge.distance(other));
+                if (min == 0) {
+                    return 0;
+                }
+            }
+
+            for (final List<Line> holeEdges : holes) {
+                for (final Line edge : holeEdges) {
+                    min = Math.min(min, edge.distance(other));
+                    if (min == 0) {
+                        return 0;
+                    }
+                }
+            }
+
+            return min;
+
+        } else {
+            return other.distance(this);
+        }
     }
 
     @Override

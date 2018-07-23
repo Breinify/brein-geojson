@@ -62,6 +62,9 @@ public class TestLine {
         Assert.assertFalse(makeLine(0, 0, 1, 1).within(makeLine(1, 0, 0, 1)));
 
         Assert.assertTrue(makeLine(0, 0, 1, 1).within(makeLine(0, 0, 1, 1)));
+
+
+        Assert.assertFalse(makeLine(0, 0, 1, 1).within(makeLine(0, 0, -1, -1)));
     }
 
     public Line makeLine(final double x1, final double y1, final double x2, final double y2) {

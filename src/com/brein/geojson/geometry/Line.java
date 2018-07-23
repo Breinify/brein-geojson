@@ -53,7 +53,24 @@ public class Line implements IGeometryObject {
             final Point otherPoint = (Point) other;
             return getEndPoints().get(0).equals(otherPoint) && getEndPoints().get(1).equals(otherPoint);
         } else if (Line.class.isAssignableFrom(other.getClass())) {
+            return other.encases(this);
+        } else if (GeometryCollection.class.isAssignableFrom(other.getClass())) {
+            return other.encases(this);
+        }
+        LOGGER.warn("Unsure of class type " + other.getClass());
+        return false;
+    }
 
+    @Override
+    public boolean encases(final IGeometryObject other) {
+        if (Polygon.class.isAssignableFrom(other.getClass())) {
+            for (final Line line : ((Polygon) other).getRing()) {
+                if (!this.encases(line)) {
+                    return false;
+                }
+            }
+            return true;
+        } else if (Line.class.isAssignableFrom(other.getClass())) {
             final Line otherLine = (Line) other;
             final Vector2d p = new Vector2d(endPoints.get(0));
             final Vector2d q = new Vector2d(otherLine.endPoints.get(0));
@@ -72,40 +89,19 @@ public class Line implements IGeometryObject {
                 final double t0 = (q.subtract(p)).dot(r) / (r.dot(r));
                 final double t1 = t0 + s.dot(r) / (r.dot(r));
 
-                //todo: test that this is within and not encase
                 return t1 >= 0 && t1 <= 1 && t0 >= 0 && t0 <= 1;
             } else {
                 return false;
             }
-        } else if (GeometryCollection.class.isAssignableFrom(other.getClass())) {
-            return other.encases(this);
-        }
-        LOGGER.warn("Unsure of class type " + other.getClass());
-        return false;
-    }
-
-    @Override
-    public boolean encases(final IGeometryObject other) {
-        if (Polygon.class.isAssignableFrom(other.getClass())) {
-            for (final Line line : ((Polygon) other).getRing()) {
-                if (!this.encases(line)) {
-                    return false;
-                }
-            }
-            return true;
-        } else if (Line.class.isAssignableFrom(other.getClass())) {
-            return other.within(this);
         } else if (Point.class.isAssignableFrom(other.getClass())) {
             final Point p = (Point) other;
 
             final double pointDist = p.distance(endPoints.get(0)) + p.distance(endPoints.get(1));
             final double closestDist = this.length();
             return CommonGeoMath.approxEquals(pointDist, closestDist);
-        } else if (GeometryCollection.class.isAssignableFrom(other.getClass())) {
+        } else {
             return other.within(this);
         }
-
-        return false;//todo
     }
 
     @Override

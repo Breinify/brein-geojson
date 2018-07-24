@@ -108,7 +108,6 @@ public class CommonGeoMath {
         }
 
         if (hasInsidePoints) {
-            //todo: handle case where ring encases a hole
             return IntersectionType.INSIDE;
         } else {
             return IntersectionType.OUTSIDE;

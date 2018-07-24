@@ -1,5 +1,6 @@
 package com.brein.geojson.geometry;
 
+import com.brein.geojson.tools.CommonGeoMath;
 import com.brein.geojson.tools.Constants;
 
 import java.util.Arrays;
@@ -63,8 +64,8 @@ public class GeometryCollection implements IGeometryObject {
 
             for (final IGeometryObject o : ((GeometryCollection) other).getShapes()) {
                 min = Math.min(min, distance(o));
-                if (min == 0) {
-                    return min;
+                if (CommonGeoMath.approxEquals(min, 0)) {
+                    return 0;
                 }
             }
             return min;
@@ -72,8 +73,8 @@ public class GeometryCollection implements IGeometryObject {
             double min = Double.MAX_VALUE;
             for (final IGeometryObject o : getShapes()) {
                 min = Math.min(min, o.distance(other));
-                if (min == 0) {
-                    return min;
+                if (CommonGeoMath.approxEquals(min, 0)) {
+                    return 0;
                 }
             }
             return min;

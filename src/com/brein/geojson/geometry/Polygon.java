@@ -37,7 +37,7 @@ public class Polygon implements IGeometryObject {
     public boolean within(final IGeometryObject other) {
         if (Point.class.isAssignableFrom(other.getClass())) {
             //if this polygon is just a point, then it may be within the other point
-            if (bbox.getDownLeft().distance(bbox.getUpRight()) == 0) {
+            if (CommonGeoMath.approxEquals(bbox.getDownLeft().distance(bbox.getUpRight()), 0)) {
                 return bbox.getDownLeft().equals(other);
             }
             return false;
@@ -58,8 +58,6 @@ public class Polygon implements IGeometryObject {
                     return false;
                 }
             }
-
-            //todo: decide on hole logic
             return true;
         } else if (Line.class.isAssignableFrom(other.getClass())) {
             //a polygon can only be within a line if the polygon is just a flat line
@@ -90,14 +88,9 @@ public class Polygon implements IGeometryObject {
             }
             return true;
 
-        } else if (Polygon.class.isAssignableFrom(other.getClass())) {
-            return other.within(this);
-        } else if (Line.class.isAssignableFrom(other.getClass())) {
-            return other.within(this);
-        } else if (GeometryCollection.class.isAssignableFrom(other.getClass())) {
+        } else {
             return other.within(this);
         }
-        return false;
     }
 
     @Override
@@ -108,7 +101,7 @@ public class Polygon implements IGeometryObject {
             double min = Double.MAX_VALUE;
             for (final Line edge : ring) {
                 min = Math.min(min, edge.distance(other));
-                if (min == 0) {
+                if (CommonGeoMath.approxEquals(min, 0)) {
                     return 0;
                 }
             }
@@ -116,7 +109,7 @@ public class Polygon implements IGeometryObject {
             for (final List<Line> holeEdges : holes) {
                 for (final Line edge : holeEdges) {
                     min = Math.min(min, edge.distance(other));
-                    if (min == 0) {
+                    if (CommonGeoMath.approxEquals(min, 0)) {
                         return 0;
                     }
                 }
@@ -128,7 +121,7 @@ public class Polygon implements IGeometryObject {
             double min = Double.MAX_VALUE;
             for (final Line edge : p.ring) {
                 min = Math.min(min, edge.distance(this));
-                if (min == 0) {
+                if (CommonGeoMath.approxEquals(min, 0)) {
                     return 0;
                 }
             }
@@ -136,7 +129,7 @@ public class Polygon implements IGeometryObject {
             for (final List<Line> holeEdges : p.holes) {
                 for (final Line edge : holeEdges) {
                     min = Math.min(min, edge.distance(this));
-                    if (min == 0) {
+                    if (CommonGeoMath.approxEquals(min, 0)) {
                         return 0;
                     }
                 }
@@ -144,7 +137,7 @@ public class Polygon implements IGeometryObject {
 
             for (final Line edge : ring) {
                 min = Math.min(min, edge.distance(other));
-                if (min == 0) {
+                if (CommonGeoMath.approxEquals(min, 0)) {
                     return 0;
                 }
             }
@@ -152,7 +145,7 @@ public class Polygon implements IGeometryObject {
             for (final List<Line> holeEdges : holes) {
                 for (final Line edge : holeEdges) {
                     min = Math.min(min, edge.distance(other));
-                    if (min == 0) {
+                    if (CommonGeoMath.approxEquals(min, 0)) {
                         return 0;
                     }
                 }

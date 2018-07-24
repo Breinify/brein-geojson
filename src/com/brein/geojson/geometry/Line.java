@@ -131,7 +131,7 @@ public class Line implements IGeometryObject {
             for (int ct = 0; ct < 2; ct++) {
                 min = Math.min(min, o.distance(getEndPoints().get(ct)));
                 min = Math.min(min, this.distance(o.getEndPoints().get(ct)));
-                if (min == 0) {
+                if (CommonGeoMath.approxEquals(min, 0)) {
                     return 0;
                 }
             }

@@ -1,5 +1,6 @@
 package com.brein.geojson.geometry;
 
+import com.brein.geojson.tools.CommonGeoMath;
 import com.brein.geojson.tools.Constants;
 
 import java.util.Arrays;
@@ -20,7 +21,8 @@ public class Point implements IGeometryObject {
     public boolean within(final IGeometryObject other) {
         if (Point.class.isAssignableFrom(other.getClass())) {
             final Point o = (Point) other;
-            return this.lat == o.lat && this.lon == o.lon;
+            return CommonGeoMath.approxEquals(this.lat, o.lat) &&
+                    CommonGeoMath.approxEquals(this.lon,o.lon);
         } else {
             return other.encases(this);
         }
@@ -30,13 +32,15 @@ public class Point implements IGeometryObject {
     public boolean encases(final IGeometryObject other) {
         if (Point.class.isAssignableFrom(other.getClass())) {
             final Point o = (Point) other;
-            return this.lat == o.lat && this.lon == o.lon;
+            return CommonGeoMath.approxEquals(this.lat, o.lat) &&
+                    CommonGeoMath.approxEquals(this.lon,o.lon);
         } else {
             final BoundingBox bbox = other.boundingBox();
             if (!bbox.getDownLeft().equals(bbox.getUpRight())) {
                 return false;
             }
-            return this.lat == bbox.getDownLeft().lat && this.lon == bbox.getDownLeft().lon;
+            return CommonGeoMath.approxEquals(this.lat, bbox.getDownLeft().lat) &&
+                    CommonGeoMath.approxEquals(this.lon, bbox.getDownLeft().lon);
         }
     }
 
@@ -79,7 +83,8 @@ public class Point implements IGeometryObject {
             return false;
         } else if (other.getClass().equals(this.getClass())) {
             final Point o = (Point) other;
-            return this.lat == o.lat && this.lon == o.lon;
+            return CommonGeoMath.approxEquals(this.lat, o.lat) &&
+                    CommonGeoMath.approxEquals(this.lon,o.lon);
         } else {
             return false;
         }

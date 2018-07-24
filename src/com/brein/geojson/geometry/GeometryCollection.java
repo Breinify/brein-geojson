@@ -102,6 +102,11 @@ public class GeometryCollection implements IGeometryObject {
         double latSum = 0;
         double lonSum = 0;
         double weightSum = 0;
+
+        double pointLatSum = 0;
+        double pointLonSum = 0;
+        int points = 0;
+
         for (final IGeometryObject shape : shapes) {
             final double weight = shape.surfaceArea();
             final Point center = shape.centroid();
@@ -109,8 +114,20 @@ public class GeometryCollection implements IGeometryObject {
             lonSum += weight * center.getLon();
             weightSum += weight;
 
+            if (Point.class.isAssignableFrom(shape.getClass())) {
+                pointLatSum += center.getLat();
+                pointLonSum += center.getLon();
+                points++;
+            }
+
         }
-        return new Point(latSum / weightSum, lonSum / weightSum);
+        if (weightSum > 0) {
+            return new Point(latSum / weightSum, lonSum / weightSum);
+        } else if (points > 0) {
+            return new Point(pointLatSum / points, pointLonSum / points);
+        } else {
+            return null;
+        }
     }
 
     @Override

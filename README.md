@@ -97,9 +97,9 @@ new Point(12, -2).within(square); // False
 
 
 
-### Misc Questions
+## Misc Questions
 
-#### Does this library enforce the `right-hand rule` for polygons?
+### Does this library enforce the `right-hand rule` for polygons?
 
 No
 

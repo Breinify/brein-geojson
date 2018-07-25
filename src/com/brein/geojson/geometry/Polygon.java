@@ -213,6 +213,12 @@ public class Polygon implements IGeometryObject {
         return res;
     }
 
+    @Override
+    public String toString() {
+        return "Polygon with an outer shell of " + (getRing().size()) + " segments and " +
+                (getHoles().isEmpty() ? "no" : getHoles().size()) + " holes bounded by " + bbox;
+    }
+
     public static List<Line> pointsToLine(final List<Point> points) {
         final List<Line> res = new ArrayList<>();
 

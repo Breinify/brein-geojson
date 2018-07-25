@@ -10,15 +10,17 @@ import java.io.IOException;
 public class TestDemo {
     @Test
     public void sample() throws IOException {
+        // this is just a square from (0,0) to (10,10)
         final IGeometryObject square = GeoJsonLoader.loadFromResource("/data/samplePolygon.json");
 
         System.out.println("Loaded: " + square);
         System.out.println("A map representing the object's json is " + square.toMap());
         System.out.println();
-        System.out.println("The center of the object is " + square.centroid());
-        System.out.println("Surface Area is " + square.surfaceArea());
-        System.out.println("The object's bounding box is " + square.boundingBox());
+        System.out.println("The center of the object is " + square.centroid()); // the point (5.0,5.0)
+        System.out.println("Surface Area is " + square.surfaceArea()); // 100 square units
+        System.out.println("The object's bounding box is " + square.boundingBox()); // the bbox [(0.0,0.0),(10.0,10.0)]
 
+        // a shape is `within` another shape if it is entirely contained by the other shape
         System.out.println();
         final Point pointInSquare = new Point(1, 6);
         System.out.println(pointInSquare + " is " + (pointInSquare.within(square) ? "" : " not ") + "within the " +

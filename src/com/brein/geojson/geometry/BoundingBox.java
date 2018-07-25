@@ -51,4 +51,9 @@ public class BoundingBox {
     public Point getDownLeft() {
         return downLeft;
     }
+
+    @Override
+    public String toString() {
+        return "[" + getDownLeft() + "," + getUpRight() + "]";
+    }
 }

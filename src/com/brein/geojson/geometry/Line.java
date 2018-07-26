@@ -187,6 +187,11 @@ public class Line implements IGeometryObject {
     }
 
     @Override
+    public int hashCode() {
+        return endPoints.get(0).hashCode() ^ endPoints.get(1).hashCode();
+    }
+
+    @Override
     public String toString() {
         return endPoints.toString();
     }

@@ -22,7 +22,7 @@ public class Point implements IGeometryObject {
         if (Point.class.isAssignableFrom(other.getClass())) {
             final Point o = (Point) other;
             return CommonGeoMath.approxEquals(this.lat, o.lat) &&
-                    CommonGeoMath.approxEquals(this.lon,o.lon);
+                    CommonGeoMath.approxEquals(this.lon, o.lon);
         } else {
             return other.encases(this);
         }
@@ -33,7 +33,7 @@ public class Point implements IGeometryObject {
         if (Point.class.isAssignableFrom(other.getClass())) {
             final Point o = (Point) other;
             return CommonGeoMath.approxEquals(this.lat, o.lat) &&
-                    CommonGeoMath.approxEquals(this.lon,o.lon);
+                    CommonGeoMath.approxEquals(this.lon, o.lon);
         } else {
             final BoundingBox bbox = other.boundingBox();
             if (!bbox.getDownLeft().equals(bbox.getUpRight())) {
@@ -84,10 +84,15 @@ public class Point implements IGeometryObject {
         } else if (other.getClass().equals(this.getClass())) {
             final Point o = (Point) other;
             return CommonGeoMath.approxEquals(this.lat, o.lat) &&
-                    CommonGeoMath.approxEquals(this.lon,o.lon);
+                    CommonGeoMath.approxEquals(this.lon, o.lon);
         } else {
             return false;
         }
+    }
+
+    @Override
+    public int hashCode() {
+        return ((int) lat) ^ (int) lon;
     }
 
     public double getLat() {

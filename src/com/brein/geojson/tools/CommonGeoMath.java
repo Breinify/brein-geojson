@@ -44,15 +44,19 @@ public class CommonGeoMath {
         return pointRingIntersection(point, ring, ringBBox) % 2 == 1;
     }
 
-    public static double ringArea(final List<Line> ring) {
-        return Math.abs(0.5 * ring.stream()
+    public static double signedRingArea(final List<Line> ring){
+        return 0.5 * ring.stream()
                 .mapToDouble(l -> l.getEndPoints().get(0).getLat() * l.getEndPoints().get(1).getLon()
                         - l.getEndPoints().get(1).getLat() * l.getEndPoints().get(0).getLon())
-                .sum());
+                .sum();
+    }
+
+    public static double ringArea(final List<Line> ring) {
+        return Math.abs(signedRingArea(ring));
     }
 
     public static Point ringCentroid(final List<Line> ring) {
-        final double area = ringArea(ring);
+        final double area = signedRingArea(ring);
 
         final double lat = 1 / 6.0 / area * ring.stream().mapToDouble(l ->
                 (l.getEndPoints().get(0).getLat() + l.getEndPoints().get(1).getLat()) *
@@ -66,7 +70,7 @@ public class CommonGeoMath {
                                 l.getEndPoints().get(1).getLat() * l.getEndPoints().get(0).getLon()))
                 .sum();
 
-        return new Point(lat, lon);
+        return new Point(lon, lat);
     }
 
     public static IntersectionType ringPolygonIntersection(final List<Line> ring, final Polygon poly) {

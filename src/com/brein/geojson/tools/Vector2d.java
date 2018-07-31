@@ -12,7 +12,7 @@ public class Vector2d {
     }
 
     public Vector2d(final Point p) {
-        this(p.getLat(), p.getLon());
+        this(p.getLon(), p.getLat());
     }
 
     public Vector2d add(final Vector2d other) {

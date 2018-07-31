@@ -12,7 +12,7 @@ public class Point implements IGeometryObject {
     private final double lat;
     private final double lon;
 
-    public Point(final double lat, final double lon) {
+    public Point(final double lon, final double lat) {
         this.lat = lat;
         this.lon = lon;
     }

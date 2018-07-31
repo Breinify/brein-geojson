@@ -192,7 +192,7 @@ public class Polygon implements IGeometryObject {
             totalWeight += holeArea;
         }
 
-        return new Point(xWeighted / totalWeight, yWeighted / totalWeight);
+        return new Point( yWeighted / totalWeight, xWeighted / totalWeight);
     }
 
     @Override

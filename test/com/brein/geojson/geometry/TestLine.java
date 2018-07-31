@@ -42,6 +42,10 @@ public class TestLine {
         Assert.assertEquals(0, makeLine(0, 0, 2, 2).distance(new Point(1, 1)), 0.001);
         Assert.assertEquals(Math.sqrt(2), makeLine(0, 0, 2, 2).distance(new Point(-1, -1)), 0.001);
         Assert.assertEquals(Math.sqrt(2), makeLine(0, 0, 2, 2).distance(new Point(0, 2)), 0.001);
+        Assert.assertEquals(Math.sqrt(2), makeLine(0, 0, 2, 2).distance(new Point(2, 0)), 0.001);
+
+        Assert.assertEquals(Math.sqrt(2), makeLine(2,2, 0,0).distance(new Point(0, 2)), 0.001);
+        Assert.assertEquals(Math.sqrt(2), makeLine(2,2, 0,0).distance(new Point(2, 0)), 0.001);
     }
 
     @Test

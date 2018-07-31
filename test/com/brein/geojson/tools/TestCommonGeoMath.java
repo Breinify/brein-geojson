@@ -64,7 +64,8 @@ public class TestCommonGeoMath {
                 new Point(0, 0),
                 new Point(1, 0),
                 new Point(1, 1),
-                new Point(0, 1)
+                new Point(0, 1),
+                new Point(0, 0)
         ));
 
         Assert.assertEquals(new Point(0.5, 0.5), CommonGeoMath.ringCentroid(square));
@@ -74,7 +75,8 @@ public class TestCommonGeoMath {
                 new Point(1, 0),
                 new Point(0.5, 0.5),
                 new Point(1, 1),
-                new Point(0, 1)
+                new Point(0, 1),
+                new Point(0, 0)
         ));
 
         // object is mirrored, so only care about one side of it, upper triangle is centered at .5/3 + .5, lower
@@ -93,10 +95,10 @@ public class TestCommonGeoMath {
                 new Point(-.5, -.5)
         ));
 
-        final Point pt = new Point(-1.5,-1.5);
+        final Point pt = new Point(-1.5, -1.5);
 
-        final BoundingBox bbox = new BoundingBox(new Point(1.5,1.5), pt);
+        final BoundingBox bbox = new BoundingBox(new Point(1.5, 1.5), pt);
 
-        Assert.assertFalse(CommonGeoMath.pointInRing(pt, ring,bbox));
+        Assert.assertFalse(CommonGeoMath.pointInRing(pt, ring, bbox));
     }
 }

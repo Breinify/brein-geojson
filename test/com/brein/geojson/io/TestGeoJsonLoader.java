@@ -18,7 +18,7 @@ public class TestGeoJsonLoader {
         Assert.assertTrue(pt.getClass().isAssignableFrom(Point.class));
 
         final Point point = (Point) pt;
-        Assert.assertEquals(100, ((Point) pt).getLat(), 0.0001);
-        Assert.assertEquals(50.5, ((Point) pt).getLon(), 0.0001);
+        Assert.assertEquals(100, ((Point) pt).getLon(), 0.0001);
+        Assert.assertEquals(50.5, ((Point) pt).getLat(), 0.0001);
     }
 }

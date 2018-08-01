@@ -69,7 +69,7 @@ An IGeometryObject supports calls to get the `centroid()`, `surfaceArea()` or `b
 ```java
 square.centroid(); // the point (5.0,5.0)
 square.surfaceArea(); // 100 square units
-sqiare.boundingBox(); // the bounding box [(0.0,0.0),(10.0,10.0)]
+square.boundingBox(); // the bounding box [(0.0,0.0),(10.0,10.0)]
 ```
 
 ### Object Interaction

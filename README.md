@@ -85,6 +85,17 @@ B (green), but A does not encase C (red):
 
 An object is within another object if it is entirely surrounded by it. That is, if A encases B, then B is within A.
 
+#### Distance
+
+The minimum distance between two objects.
+
+Note that for polygons, we measure the minimum distance between two edges of the polygon, not the distance between 
+their midpoints. For example:
+
+<p align="center">
+  <img src="./docs/images/poly_poly_dist.svg" alt="Measuring the distance between two polygons" height="200">
+</p>
+
 ## Getting Started
 
 A complete copy of the code below is available under [`TestDemo`](https://github.com/Breinify/brein-geojson/blob/master/test/com/brein/geojson/docs/TestDemo.java).

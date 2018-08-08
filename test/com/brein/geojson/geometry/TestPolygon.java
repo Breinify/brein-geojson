@@ -132,6 +132,30 @@ public class TestPolygon {
     }
 
     @Test
+    public void testIntersection(){
+        final Polygon p1 = new Polygon(new Point(0,0), new Point(1,0),
+                new Point(1,1), new Point(0,1), new Point(0,0));
+
+        final Polygon p2 = new Polygon(new Point(0.5,0.5), new Point(1.5,0.5),
+                new Point(1.5,1.5), new Point(0.5,1.5), new Point(0.5,0.5));
+
+        final Polygon p3 = new Polygon(new Point(2.5,2.5), new Point(4.5,2.5),
+                new Point(4.5,4.5), new Point(2.5,4.5), new Point(2.5,2.5));
+
+        Assert.assertTrue(p1.intersects(p2));
+        Assert.assertTrue(p2.intersects(p1));
+
+        Assert.assertFalse(p1.intersects(p3));
+        Assert.assertFalse(p2.intersects(p3));
+
+        Assert.assertFalse(p3.intersects(p1));
+        Assert.assertFalse(p3.intersects(p2));
+
+
+        Assert.assertTrue(p3.intersects(p3));
+    }
+
+    @Test
     public void testPolyPolyDistance() {
 
         final Polygon bigWithHole = new Polygon(makeRings.apply(1.5),

@@ -105,6 +105,15 @@ public class Line implements IGeometryObject {
     }
 
     @Override
+    public boolean intersects(final IGeometryObject other) {
+        if (Line.class.isAssignableFrom(other.getClass())) {
+            return intersectsOtherLine((Line) other);
+        } else {
+            return CommonGeoMath.approxEquals(0, distance(other));
+        }
+    }
+
+    @Override
     public double distance(final IGeometryObject other) {
         if (Point.class.isAssignableFrom(other.getClass())) {
             //see https://stackoverflow.com/questions/849211/shortest-distance-between-a-point-and-a-line-segment
@@ -196,7 +205,7 @@ public class Line implements IGeometryObject {
         return endPoints.toString();
     }
 
-    public boolean intersects(final Line other) {
+    public boolean intersectsOtherLine(final Line other) {
         //see https://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect
 
         final Vector2d p = new Vector2d(endPoints.get(0));

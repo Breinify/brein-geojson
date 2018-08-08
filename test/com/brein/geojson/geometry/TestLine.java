@@ -35,6 +35,10 @@ public class TestLine {
         Assert.assertTrue(makeLine(0, 0, 1, 1).encases(new Point(0.5, 0.5)));
         Assert.assertFalse(makeLine(0, 0, 1, 1).encases(new Point(0.75, 0.5)));
         Assert.assertTrue(makeLine(0, 0, 1, 1).encases(new Point(0.0, 0.0)));
+
+        Assert.assertTrue(makeLine(0, 0, 1, 1).intersects(new Point(0.5, 0.5)));
+        Assert.assertFalse(makeLine(0, 0, 1, 1).intersects(new Point(0.75, 0.5)));
+        Assert.assertTrue(makeLine(0, 0, 1, 1).intersects(new Point(0.0, 0.0)));
     }
 
     @Test

@@ -74,8 +74,8 @@ For example, the bounding boxes of various shapes are:
 
 #### Encase
 
-An object encases another object if it entirely surrounds the object. For example, in the image below, A (blue) encases 
-B (green), but A does not encase C (red):
+An object encases another object if it entirely surrounds the object. For example, in the image below, `A` (blue) encases 
+`B` (green), but `A` does not encase `C` (red):
 
 <p align="center">
   <img src="./docs/images/object_interaction.svg" alt="Encase Example" height="200">
@@ -83,7 +83,13 @@ B (green), but A does not encase C (red):
 
 #### Within
 
-An object is within another object if it is entirely surrounded by it. That is, if A encases B, then B is within A.
+An object is within another object if it is entirely surrounded by it. That is, if `A` encases `B`, then `B` is within 
+`A`.
+
+#### Intersection
+
+An object intersects another object if at least some part of the object is within the other object. From the example 
+above,`A` intersects with both `B` and `C`, but `B` does not intersect with `C`.
 
 #### Distance
 

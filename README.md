@@ -39,7 +39,7 @@ Note:
 concave. For example:
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Breinify/brein-geojson/master/docs/images/centroid_doughnut.svg" alt="Centroid Example" width="500">
+  <img src="./docs/images/centroid_doughnut.svg" alt="Centroid Example" width="500">
 </p>
 
 * Geometry Collection - The centroid of a geometry collection is the weighted average of it's component's centroids.
@@ -78,7 +78,7 @@ An object encases another object if it entirely surrounds the object. For exampl
 B (green), but A does not encase C (red):
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Breinify/brein-geojson/master/docs/images/object_interaction.svg" alt="Encase Example" width="500">
+  <img src="./docs/images/object_interaction.svg" alt="Encase Example" width="500">
 </p>
 
 #### Within

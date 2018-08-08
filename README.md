@@ -38,7 +38,9 @@ Note:
 * Polygon - The centroid of a polygon is the center of mass, which may be outside the polygon if it has holes or is 
 concave. For example:
 
-<img src="https://www.breinify.com/img/Breinify_logo.png" width="100%" height="256">
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Breinify/brein-geojson/master/docs/images/centroid_doughnut.svg" alt="Centroid Example" width="500">
+</p>
 
 * Geometry Collection - The centroid of a geometry collection is the weighted average of it's component's centroids.
 
@@ -64,7 +66,9 @@ shape.boundingBox();
 
 For example, the bounding boxes of various shapes are:
 
-<img src="https://www.breinify.com/img/Breinify_logo.png" width="100%" height="256">
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Breinify/brein-geojson/master/docs/images/bounding_box.svg" alt="Bounding Box Example" width="500">
+</p>
 
 ### Interacting between two objects
 
@@ -73,7 +77,9 @@ For example, the bounding boxes of various shapes are:
 An object encases another object if it entirely surrounds the object. For example, in the image below, A (blue) encases 
 B (green), but A does not encase C (red):
 
-<img src="https://www.breinify.com/img/Breinify_logo.png" width="100%" height="256">
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Breinify/brein-geojson/master/docs/images/object_interaction.svg" alt="Encase Example" width="500">
+</p>
 
 #### Within
 

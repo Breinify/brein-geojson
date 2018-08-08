@@ -67,7 +67,7 @@ shape.boundingBox();
 For example, the bounding boxes of various shapes are:
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Breinify/brein-geojson/master/docs/images/bounding_box.svg?sanitize=1" alt="Bounding Box Example" width="500">
+  <img src="./docs/images/bounding_box.svg" alt="Bounding Box Example" width="500">
 </p>
 
 ### Interacting between two objects

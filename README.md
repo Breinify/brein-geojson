@@ -22,6 +22,46 @@ This library does *not* currently support features such as tools to modify GeoJS
 It also does not natively support loading shapes from non-geojson objects (e.g. Shapefiles or KML), although one could 
 map these other formats to our constructors if they want to use the other functionality of our utilities.
 
+## Getting Started
+
+A complete copy of the code below is available under [`TestDemo`](https://github.com/Breinify/brein-geojson/blob/master/test/com/brein/geojson/docs/TestDemo.java).
+
+### Loading Your First GeoJSON
+
+We provide a helper class, `GeoJsonLoader` that takes either a `String` or a `File` to load a GeoJSON. For example, 
+given a file, stored as a resource, that looks like 
+
+```javascript
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [0.0, 0.0],
+        [10.0, 0.0],
+        [10.0, 10.0],
+        [0.0, 10.0],
+        [0.0, 0.0]
+      ]
+    ]
+  }
+}
+```
+
+One can load it through the helper function:
+
+```java
+IGeometryObject square = GeoJsonLoader.loadFromResource("/data/samplePolygon.json");
+```
+
+The object can be stored back as a json-like-object (Map<String, Object>) with the `toMap()` function (`square.toMap()`) 
+to get:
+
+```text
+{coordinates=[[[0.0, 0.0], [10.0, 0.0], [10.0, 10.0], [0.0, 10.0], [0.0, 0.0]]], type=Polygon}
+```
+
 ## Supported Features
 
 ### Statistics On A Geometry Object
@@ -101,47 +141,6 @@ their midpoints. For example:
 <p align="center">
   <img src="./docs/images/poly_poly_dist.svg" alt="Measuring the distance between two polygons" height="200">
 </p>
-
-## Getting Started
-
-A complete copy of the code below is available under [`TestDemo`](https://github.com/Breinify/brein-geojson/blob/master/test/com/brein/geojson/docs/TestDemo.java).
-
-### Loading Your First GeoJSON
-
-We provide a helper class, `GeoJsonLoader` that takes either a `String` or a `File` to load a GeoJSON. For example, 
-given a file, stored as a resource, that looks like 
-
-```javascript
-{
-  "type": "Feature",
-  "geometry": {
-    "type": "Polygon",
-    "coordinates": [
-      [
-        [0.0, 0.0],
-        [10.0, 0.0],
-        [10.0, 10.0],
-        [0.0, 10.0],
-        [0.0, 0.0]
-      ]
-    ]
-  }
-}
-```
-
-One can load it through the helper function:
-
-```java
-IGeometryObject square = GeoJsonLoader.loadFromResource("/data/samplePolygon.json");
-```
-
-The object can be stored back as a json-like-object (Map<String, Object>) with the `toMap()` function (`square.toMap()`) 
-to get:
-
-```text
-{coordinates=[[[0.0, 0.0], [10.0, 0.0], [10.0, 10.0], [0.0, 10.0], [0.0, 0.0]]], type=Polygon}
-```
-
 
 ## Misc Questions
 

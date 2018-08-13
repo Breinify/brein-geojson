@@ -26,6 +26,18 @@ map these other formats to our constructors if they want to use the other functi
 
 A complete demonstration of the features is available under [`TestDemo`](https://github.com/Breinify/brein-geojson/blob/master/test/com/brein/geojson/docs/TestDemo.java).
 
+### Usage: Maven Central
+
+The library is available on [Maven Central](https://search.maven.org/search?q=a:brein-geojson). You can just add it as a dependency:
+
+```xml
+<dependency>
+    <groupId>com.breinify</groupId>
+    <artifactId>brein-geojson</artifactId>
+    <version>${currentVersion}</version>
+</dependency>
+```
+
 ### Loading Your First GeoJSON
 
 We provide a helper class, `GeoJsonLoader` that takes either a `String` or a `File` to load a GeoJSON. For example, 

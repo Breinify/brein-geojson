@@ -29,5 +29,13 @@ public class TestDemo {
         final Point pointOutsideSquare = new Point(12, -2);
         System.out.println(pointOutsideSquare + " is " + (pointOutsideSquare.within(square) ? "" : "not ") + "within" +
                 " the square");
+
+
+        System.out.println(pointInSquare + " does " + (pointInSquare.intersects(square) ? "" : " not ") + "intersect " +
+                "with the square");
+
+        System.out.println(pointOutsideSquare + " does " + (pointOutsideSquare.intersects(square) ? "" : "not ") +
+                "intersect with  the square");
+
     }
 }

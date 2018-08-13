@@ -24,7 +24,7 @@ map these other formats to our constructors if they want to use the other functi
 
 ## Getting Started
 
-A complete copy of the code below is available under [`TestDemo`](https://github.com/Breinify/brein-geojson/blob/master/test/com/brein/geojson/docs/TestDemo.java).
+A complete demonstration of the features is available under [`TestDemo`](https://github.com/Breinify/brein-geojson/blob/master/test/com/brein/geojson/docs/TestDemo.java).
 
 ### Loading Your First GeoJSON
 

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.breinify</groupId>
+    <artifactId>brein-geojson</artifactId>
+    <version>1.0.0</version>
+
+    <name>brein-geojson</name>
+    <description>Brein GeoJson (Breinify)</description>
+    <packaging>jar</packaging>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/Breinify/brein-time-utilities</url>
+        <connection>scm:git:git://github.com/Breinify/brein-time-utilities.git</connection>
+        <developerConnection>scm:git:git@github.com:Breinify/brein-time-utilities.git</developerConnection>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>ToddBodnar</id>
+            <name>Todd Bodnar</name>
+            <email>todd.bodnar@breinify.com</email>
+            <organization>Breinify</organization>
+        </developer>
+    </developers>
+
+    <url>https://www.breinify.com</url>
+
+    <dependencies>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+            <scope>optional</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.6.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+    </dependencies>
+</project>

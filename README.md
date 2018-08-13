@@ -9,7 +9,7 @@
 </p>
 
 # GeoJSON Utilities
-
+![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.breinify/brein-geojson/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.breinify/brein-geojson)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 <sup>Features: **GeoJSON**, **Geometry**, **Java**</sup>
 

@@ -154,6 +154,17 @@ their midpoints. For example:
   <img src="./docs/images/poly_poly_dist.svg" alt="Measuring the distance between two polygons" height="200">
 </p>
 
+#### Nearby
+
+Returns a list of shapes that are within some distance of the shape.
+
+For example, in the layout below, points A and B are within the maximum distance of the source (blue) and will be returned.
+Point C (red) is too far away from the source, and is filtered out.
+
+<p align="center">
+  <img src="./docs/images/nearby.svg" alt="Measuring the distance between two polygons" height="200">
+</p>
+
 ## Misc Questions
 
 ### Does this library enforce the `right-hand rule` for polygons?

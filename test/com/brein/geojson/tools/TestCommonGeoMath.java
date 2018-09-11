@@ -1,6 +1,7 @@
 package com.brein.geojson.tools;
 
 import com.brein.geojson.geometry.BoundingBox;
+import com.brein.geojson.geometry.IGeometryObject;
 import com.brein.geojson.geometry.Line;
 import com.brein.geojson.geometry.Point;
 import com.brein.geojson.geometry.Polygon;
@@ -9,6 +10,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map.Entry;
 
 public class TestCommonGeoMath {
 
@@ -100,5 +102,29 @@ public class TestCommonGeoMath {
         final BoundingBox bbox = new BoundingBox(new Point(1.5, 1.5), pt);
 
         Assert.assertFalse(CommonGeoMath.pointInRing(pt, ring, bbox));
+    }
+
+    @Test
+    public void testNearby() {
+        final Point src = new Point(0, 0);
+
+        final List<IGeometryObject> points = Arrays.asList(
+                new Point(10, 0),
+                new Point(1, 0),
+                new Point(5, 0),
+                new Point(0, 0));
+
+        final List<Entry<IGeometryObject, Double>> res = src.objectsNearby(points, 5);
+
+        Assert.assertEquals(3, res.size());
+
+        Assert.assertEquals(new Point(0, 0), res.get(0).getKey());
+        Assert.assertEquals(0.0, res.get(0).getValue(), 0.001);
+
+        Assert.assertEquals(new Point(1, 0), res.get(1).getKey());
+        Assert.assertEquals(1.0, res.get(1).getValue(), 0.001);
+
+        Assert.assertEquals(new Point(5, 0), res.get(2).getKey());
+        Assert.assertEquals(5.0, res.get(2).getValue(), 0.001);
     }
 }

@@ -97,8 +97,8 @@
     <circle
        style="fill:#228ddb;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="circle4740"
-       cx="439.1954"
-       cy="438.75159"
+       cx="438.28494"
+       cy="439.23425"
        r="8.5714283" />
     <circle
        r="8.5714283"
@@ -114,7 +114,7 @@
        r="106.71025" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.99071258;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:15.5;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
-       d="M 439.16214,439.5291 508.9377,360.92196"
+       d="M 438.28494,439.23425 508.9377,360.92196"
        id="path4754"
        inkscape:connector-curvature="0" />
     <text

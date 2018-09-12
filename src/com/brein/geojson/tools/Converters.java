@@ -33,6 +33,10 @@ public class Converters {
         return km / KM_AT_EQUATOR / Math.cos(Math.toRadians(latitude));
     }
 
+    public static double milesToDegrees(final double miles, final double latitude) {
+        return milesToKm(miles) / KM_AT_EQUATOR / Math.cos(Math.toRadians(latitude));
+    }
+
     public static double kmToMiles(final double km) {
         return km * 0.621371;
     }

@@ -21,6 +21,11 @@ public class Converters {
         return EARTH_RADIUS_KM * 2 * Math.atan2(Math.sqrt(haversine), Math.sqrt(1 - haversine));
     }
 
+    public static double distanceToMiles(final double lat1, final double lon1, final double lat2, final double lon2) {
+        final double distance = distanceToKm(lat1, lon1, lat2, lon2);
+        return kmToMiles(distance);
+    }
+
     /**
      * Determines the length (in degrees) of an east/west facing arc of a given length (in km) for a given latitude
      */
@@ -28,11 +33,11 @@ public class Converters {
         return km / KM_AT_EQUATOR / Math.cos(Math.toRadians(latitude));
     }
 
-    public static double kmToMiles(final double km){
+    public static double kmToMiles(final double km) {
         return km * 0.621371;
     }
 
-    public static double milesToKm(final double mi){
+    public static double milesToKm(final double mi) {
         return mi / 0.621371;
     }
 }

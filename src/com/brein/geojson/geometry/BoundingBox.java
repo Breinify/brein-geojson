@@ -66,7 +66,7 @@ public class BoundingBox implements IGeometryObject {
 
     protected void buildPoly(){
         polyRepresentation = new Polygon(upRight, new Point(downLeft.getLon(), upRight.getLat()),
-                downLeft, new Point(upRight.getLon(), downLeft.getLat()));
+                downLeft, new Point(upRight.getLon(), downLeft.getLat()), upRight);
     }
 
     @Override

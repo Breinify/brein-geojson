@@ -27,14 +27,14 @@ public class BoundingBox implements IGeometryObject {
     }
 
     public void addPoint(final Point newPoint) {
-        if (newPoint.getLon() > upRight.getLon() || newPoint.getLat() > upRight.getLon()) {
-            upRight = new Point(Math.max(newPoint.getLat(), upRight.getLat()),
-                    Math.max(newPoint.getLon(), upRight.getLon()));
+        if (newPoint.getLon() > upRight.getLon() || newPoint.getLat() > upRight.getLat()) {
+            upRight = new Point(Math.max(newPoint.getLon(), upRight.getLon()),
+                    Math.max(newPoint.getLat(), upRight.getLat()));
         }
 
-        if (newPoint.getLon() < downLeft.getLon() || newPoint.getLat() < downLeft.getLon()) {
-            downLeft = new Point(Math.min(newPoint.getLat(), downLeft.getLat()),
-                    Math.min(newPoint.getLon(), downLeft.getLon()));
+        if (newPoint.getLon() < downLeft.getLon() || newPoint.getLat() < downLeft.getLat()) {
+            downLeft = new Point(Math.min(newPoint.getLon(), downLeft.getLon()),
+                    Math.min(newPoint.getLat(), downLeft.getLat()));
         }
 
         polyRepresentation = null;

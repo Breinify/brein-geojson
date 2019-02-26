@@ -17,7 +17,7 @@ public class CommonGeoMath {
             }
         }
         //find point outside of ring
-        final Point target = new Point(ringBBox.getUpRight().getLat() + 1, ringBBox.getUpRight().getLon() + 1);
+        final Point target = new Point(ringBBox.getUpRight().getLon() + 1, ringBBox.getUpRight().getLat() + 1);
         final Line ray = new Line(Arrays.asList(point, target));
 
         //if we hit a corner of a ring, then we'll count two lines that it hit with
@@ -41,6 +41,12 @@ public class CommonGeoMath {
     }
 
     public static boolean pointInRing(final Point point, final List<Line> ring, final BoundingBox ringBBox) {
+        for(final Line line: ring){
+            if(CommonGeoMath.approxEquals(0, point.distance(line))){
+                return true;
+            }
+        }
+
         return pointRingIntersection(point, ring, ringBBox) % 2 == 1;
     }
 

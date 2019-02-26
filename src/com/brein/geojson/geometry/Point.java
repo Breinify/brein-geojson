@@ -105,11 +105,11 @@ public class Point implements IGeometryObject {
 
     @Override
     public String toString() {
-        return "(" + getLon() + "," + getLon() + ")";
+        return "(" + getLon() + "," + getLat() + ")";
     }
 
     public List<Double> getCoordinates() {
-        return Arrays.asList(getLat(), getLon());
+        return Arrays.asList(getLon(), getLat());
     }
 
 }

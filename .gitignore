@@ -1,0 +1,18 @@
+# Libraries          #
+######################
+lib/**/*
+testLib/**/*
+
+# Targets            #
+######################
+target/**/*
+testTarget/**/*
+
+# Temporary          #
+######################
+tmp/**/*
+
+# OS generated files #
+######################
+**/.DS_Store
+**/.DS_Store?

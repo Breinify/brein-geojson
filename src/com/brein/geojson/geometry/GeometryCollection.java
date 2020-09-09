@@ -20,7 +20,7 @@ public class GeometryCollection implements IGeometryObject {
 
     @Override
     public boolean within(final IGeometryObject other) {
-        for (final IGeometryObject s : shapes) {
+        for (final IGeometryObject s : this.shapes) {
             if (!s.within(other)) {
                 return false;
             }
@@ -35,7 +35,7 @@ public class GeometryCollection implements IGeometryObject {
         if (GeometryCollection.class.isAssignableFrom(other.getClass())) {
             for (final IGeometryObject otherShape : ((GeometryCollection) other).shapes) {
                 boolean insideShape = false;
-                for (final IGeometryObject shape : shapes) {
+                for (final IGeometryObject shape : this.shapes) {
                     if (shape.encases(otherShape)) {
                         insideShape = true;
                         break;
@@ -48,7 +48,7 @@ public class GeometryCollection implements IGeometryObject {
             return true;
         }
         //otherwise, simple single object to check for
-        for (final IGeometryObject shape : shapes) {
+        for (final IGeometryObject shape : this.shapes) {
 
             if (other.within(shape)) {
                 return true;
@@ -83,17 +83,17 @@ public class GeometryCollection implements IGeometryObject {
 
     @Override
     public double surfaceArea() {
-        return shapes.stream().mapToDouble(IGeometryObject::surfaceArea).sum();
+        return this.shapes.stream().mapToDouble(IGeometryObject::surfaceArea).sum();
     }
 
     @Override
     public BoundingBox boundingBox() {
-        if (shapes.isEmpty()) {
+        if (this.shapes.isEmpty()) {
             return null;
         } else {
-            final BoundingBox res = shapes.get(0).boundingBox().copy();
+            final BoundingBox res = this.shapes.get(0).boundingBox().copy();
 
-            shapes.forEach(shape -> res.addBBox(shape.boundingBox()));
+            this.shapes.forEach(shape -> res.addBBox(shape.boundingBox()));
             return res;
         }
     }
@@ -108,7 +108,7 @@ public class GeometryCollection implements IGeometryObject {
         double pointLonSum = 0;
         int points = 0;
 
-        for (final IGeometryObject shape : shapes) {
+        for (final IGeometryObject shape : this.shapes) {
             final double weight = shape.surfaceArea();
             final Point center = shape.centroid();
             latSum += weight * center.getLat();
@@ -135,11 +135,17 @@ public class GeometryCollection implements IGeometryObject {
     public Map<String, Object> toMap() {
         final Map<String, Object> res = new HashMap<>();
         res.put(Constants.GEOJSON_TYPE, Constants.GEOJSON_TYPE_GEOMETRY_COLLECTION);
-        res.put(Constants.GEOJSON_GEOMETRIES, shapes.stream().map(IGeometryObject::toMap).collect(Collectors.toList()));
+        res.put(Constants.GEOJSON_GEOMETRIES, this.shapes.stream()
+                .map(IGeometryObject::toMap)
+                .collect(Collectors.toList()));
         return res;
     }
 
     public List<IGeometryObject> getShapes() {
-        return shapes;
+        return this.shapes;
+    }
+
+    public int size() {
+        return this.shapes == null ? 0 : this.shapes.size();
     }
 }

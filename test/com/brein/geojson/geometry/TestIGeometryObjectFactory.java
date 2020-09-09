@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class TestIGeometryObjectFactory {
+
     @Test(expected = GeoJsonException.class)
     public void testBadType() {
         IGeometryObjectFactory.fromGeoJsonMap(Collections.singletonMap(Constants.GEOJSON_TYPE, "some bad type"));
@@ -66,5 +67,22 @@ public class TestIGeometryObjectFactory {
                 new Line(6, 6, 4, 6),
                 new Line(4, 6, 4, 4)),
                 poly.getHoles().get(0));
+    }
+
+    @Test
+    public void testFeatureCollection() throws IOException {
+        final GeometryCollection coll =
+                (GeometryCollection) GeoJsonLoader.loadFromResource("/data/sampleFeatureCollection.json");
+        Assert.assertEquals(1, coll.size());
+
+        final IGeometryObject shape = coll.getShapes().get(0);
+        Assert.assertTrue(Polygon.class.isInstance(shape));
+
+        final Polygon polygon = Polygon.class.cast(shape);
+        Assert.assertEquals(Arrays.asList(
+                new Line(-122.4010678561855, 37.97908330861924, -122.384588363998, 37.85449295424837),
+                new Line(-122.384588363998, 37.85449295424837, -122.23489964329488, 37.95418212244576),
+                new Line(-122.23489964329488, 37.95418212244576, -122.4010678561855, 37.97908330861924)),
+                polygon.getRing());
     }
 }

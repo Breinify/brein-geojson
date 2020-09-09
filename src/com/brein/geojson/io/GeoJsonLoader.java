@@ -37,6 +37,6 @@ public class GeoJsonLoader {
 
     public static IGeometryObject loadFromMap(final Map<String, Object> json) {
         //noinspection unchecked
-        return IGeometryObjectFactory.fromGeoJsonMap((Map<String, Object>) json.get("geometry"));
+        return IGeometryObjectFactory.fromGeoJsonMap(json);
     }
 }

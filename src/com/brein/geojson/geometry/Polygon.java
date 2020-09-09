@@ -37,8 +37,8 @@ public class Polygon implements IGeometryObject {
     public boolean within(final IGeometryObject other) {
         if (Point.class.isAssignableFrom(other.getClass())) {
             //if this polygon is just a point, then it may be within the other point
-            if (CommonGeoMath.approxEquals(bbox.getDownLeft().distance(bbox.getUpRight()), 0)) {
-                return bbox.getDownLeft().equals(other);
+            if (CommonGeoMath.approxEquals(this.bbox.getDownLeft().distance(this.bbox.getUpRight()), 0)) {
+                return this.bbox.getDownLeft().equals(other);
             }
             return false;
         } else if (Polygon.class.isAssignableFrom(other.getClass())) {
@@ -61,7 +61,7 @@ public class Polygon implements IGeometryObject {
             return true;
         } else if (Line.class.isAssignableFrom(other.getClass())) {
             //a polygon can only be within a line if the polygon is just a flat line
-            for (final Line l : ring) {
+            for (final Line l : this.ring) {
                 if (!l.within(other)) {
                     return false;
                 }
@@ -77,11 +77,11 @@ public class Polygon implements IGeometryObject {
     public boolean encases(final IGeometryObject other) {
         if (Point.class.isAssignableFrom(other.getClass())) {
             final Point otherPoint = (Point) other;
-            if (!CommonGeoMath.pointInRing(otherPoint, ring, boundingBox())) {
+            if (!CommonGeoMath.pointInRing(otherPoint, this.ring, boundingBox())) {
                 return false;
             }
 
-            for (final List<Line> hole : holes) {
+            for (final List<Line> hole : this.holes) {
                 if (CommonGeoMath.pointInRing(otherPoint, hole, boundingBox())) {
                     return false;
                 }
@@ -99,14 +99,14 @@ public class Polygon implements IGeometryObject {
             return 0.0;
         } else if (Point.class.isAssignableFrom(other.getClass()) || Line.class.isAssignableFrom(other.getClass())) {
             double min = Double.MAX_VALUE;
-            for (final Line edge : ring) {
+            for (final Line edge : this.ring) {
                 min = Math.min(min, edge.distance(other));
                 if (CommonGeoMath.approxEquals(min, 0)) {
                     return 0;
                 }
             }
 
-            for (final List<Line> holeEdges : holes) {
+            for (final List<Line> holeEdges : this.holes) {
                 for (final Line edge : holeEdges) {
                     min = Math.min(min, edge.distance(other));
                     if (CommonGeoMath.approxEquals(min, 0)) {
@@ -135,14 +135,14 @@ public class Polygon implements IGeometryObject {
                 }
             }
 
-            for (final Line edge : ring) {
+            for (final Line edge : this.ring) {
                 min = Math.min(min, edge.distance(other));
                 if (CommonGeoMath.approxEquals(min, 0)) {
                     return 0;
                 }
             }
 
-            for (final List<Line> holeEdges : holes) {
+            for (final List<Line> holeEdges : this.holes) {
                 for (final Line edge : holeEdges) {
                     min = Math.min(min, edge.distance(other));
                     if (CommonGeoMath.approxEquals(min, 0)) {
@@ -167,7 +167,7 @@ public class Polygon implements IGeometryObject {
 
     @Override
     public BoundingBox boundingBox() {
-        return bbox;
+        return this.bbox;
     }
 
     @Override
@@ -202,9 +202,9 @@ public class Polygon implements IGeometryObject {
 
         final List<List<List<Double>>> coords = new ArrayList<>();
 
-        coords.add(linesToPoints(ring).stream().map(Point::getCoordinates).collect(Collectors.toList()));
+        coords.add(linesToPoints(this.ring).stream().map(Point::getCoordinates).collect(Collectors.toList()));
 
-        for (final List<Line> hole : holes) {
+        for (final List<Line> hole : this.holes) {
             coords.add(linesToPoints(hole).stream().map(Point::getCoordinates).collect(Collectors.toList()));
         }
 
@@ -216,7 +216,7 @@ public class Polygon implements IGeometryObject {
     @Override
     public String toString() {
         return "Polygon with an outer shell of " + (getRing().size()) + " segments and " +
-                (getHoles().isEmpty() ? "no" : getHoles().size()) + " holes bounded by " + bbox;
+                (getHoles().isEmpty() ? "no" : getHoles().size()) + " holes bounded by " + this.bbox;
     }
 
     public static List<Line> pointsToLine(final List<Point> points) {
@@ -241,10 +241,10 @@ public class Polygon implements IGeometryObject {
     }
 
     public List<Line> getRing() {
-        return ring;
+        return this.ring;
     }
 
     public List<List<Line>> getHoles() {
-        return holes;
+        return this.holes;
     }
 }

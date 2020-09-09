@@ -1,4 +1,10 @@
-{"type":"Feature","geometry":{
-  "type": "Point",
-  "coordinates": [100.0, 50.5]
-}}
+{
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [
+      100.0,
+      50.5
+    ]
+  }
+}

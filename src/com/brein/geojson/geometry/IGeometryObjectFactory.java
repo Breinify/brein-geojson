@@ -16,19 +16,32 @@ public class IGeometryObjectFactory {
 
         switch (type) {
             case Constants.GEOJSON_TYPE_POINT:
-                return makePoint((List<Double>) coordinates);
+                return makePoint(List.class.cast(coordinates));
             case Constants.GEOJSON_TYPE_LINE_STRING:
-                return makeLineStrings((List<List<Double>>) coordinates);
+                return makeLineStrings(List.class.cast(coordinates));
             case Constants.GEOJSON_TYPE_POLYGON:
-                return makePolygon((List<List<List<Double>>>) coordinates);
+                return makePolygon(List.class.cast(coordinates));
             case Constants.GEOJSON_TYPE_MULTI_POINT:
-                return makeMultiPoint((List<List<Double>>) coordinates);
+                return makeMultiPoint(List.class.cast(coordinates));
             case Constants.GEOJSON_TYPE_MULTI_LINE_STRING:
-                return makeMultiLineString((List<List<List<Double>>>) coordinates);
+                return makeMultiLineString(List.class.cast(coordinates));
             case Constants.GEOJSON_TYPE_MULTI_POLYGON:
-                return makeMultiPolygon((List<List<List<List<Double>>>>) coordinates);
+                return makeMultiPolygon(List.class.cast(coordinates));
             case Constants.GEOJSON_TYPE_GEOMETRY_COLLECTION:
-                return makeGeoCollection((List<Map<String, Object>>) in.get(Constants.GEOJSON_GEOMETRIES));
+                return makeGeoCollection(List.class.cast(in.get(Constants.GEOJSON_GEOMETRIES)));
+            case Constants.GEOJSON_TYPE_FEATURE_COLLECTION:
+
+                // ignore the features information
+                final List<Map<String, Object>> features = List.class.cast(in.get(Constants.GEOJSON_FEATURES));
+                return new GeometryCollection(features.stream()
+                        .map(IGeometryObjectFactory::fromGeoJsonMap)
+                        .collect(Collectors.toList()));
+            case Constants.GEOJSON_TYPE_FEATURE:
+
+                // ignore the feature information
+                final Map<String, Object> geometry = Map.class.cast(in.get(Constants.GEOJSON_GEOMETRY));
+                return fromGeoJsonMap(geometry);
+
             default:
                 throw new GeoJsonException("Can't understand type " + type);
         }

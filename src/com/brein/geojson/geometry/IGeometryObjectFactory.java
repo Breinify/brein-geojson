@@ -14,36 +14,47 @@ public class IGeometryObjectFactory {
         final String type = (String) in.get(Constants.GEOJSON_TYPE);
         final Object coordinates = in.get(Constants.GEOJSON_COORDINATES);
 
-        switch (type) {
-            case Constants.GEOJSON_TYPE_POINT:
-                return makePoint(List.class.cast(coordinates));
-            case Constants.GEOJSON_TYPE_LINE_STRING:
-                return makeLineStrings(List.class.cast(coordinates));
-            case Constants.GEOJSON_TYPE_POLYGON:
-                return makePolygon(List.class.cast(coordinates));
-            case Constants.GEOJSON_TYPE_MULTI_POINT:
-                return makeMultiPoint(List.class.cast(coordinates));
-            case Constants.GEOJSON_TYPE_MULTI_LINE_STRING:
-                return makeMultiLineString(List.class.cast(coordinates));
-            case Constants.GEOJSON_TYPE_MULTI_POLYGON:
-                return makeMultiPolygon(List.class.cast(coordinates));
-            case Constants.GEOJSON_TYPE_GEOMETRY_COLLECTION:
-                return makeGeoCollection(List.class.cast(in.get(Constants.GEOJSON_GEOMETRIES)));
-            case Constants.GEOJSON_TYPE_FEATURE_COLLECTION:
-
-                // ignore the features information
-                final List<Map<String, Object>> features = List.class.cast(in.get(Constants.GEOJSON_FEATURES));
-                return new GeometryCollection(features.stream()
-                        .map(IGeometryObjectFactory::fromGeoJsonMap)
-                        .collect(Collectors.toList()));
-            case Constants.GEOJSON_TYPE_FEATURE:
-
-                // ignore the feature information
-                final Map<String, Object> geometry = Map.class.cast(in.get(Constants.GEOJSON_GEOMETRY));
+        // if we have no type check for GEOJSON_GEOMETRY
+        if (type == null) {
+            final Map<String, Object> geometry = Map.class.cast(in.get(Constants.GEOJSON_GEOMETRY));
+            if (geometry == null) {
+                throw new GeoJsonException("Can't understand type " + in);
+            } else {
                 return fromGeoJsonMap(geometry);
+            }
+        } else {
 
-            default:
-                throw new GeoJsonException("Can't understand type " + type);
+            switch (type) {
+                case Constants.GEOJSON_TYPE_POINT:
+                    return makePoint(List.class.cast(coordinates));
+                case Constants.GEOJSON_TYPE_LINE_STRING:
+                    return makeLineStrings(List.class.cast(coordinates));
+                case Constants.GEOJSON_TYPE_POLYGON:
+                    return makePolygon(List.class.cast(coordinates));
+                case Constants.GEOJSON_TYPE_MULTI_POINT:
+                    return makeMultiPoint(List.class.cast(coordinates));
+                case Constants.GEOJSON_TYPE_MULTI_LINE_STRING:
+                    return makeMultiLineString(List.class.cast(coordinates));
+                case Constants.GEOJSON_TYPE_MULTI_POLYGON:
+                    return makeMultiPolygon(List.class.cast(coordinates));
+                case Constants.GEOJSON_TYPE_GEOMETRY_COLLECTION:
+                    return makeGeoCollection(List.class.cast(in.get(Constants.GEOJSON_GEOMETRIES)));
+                case Constants.GEOJSON_TYPE_FEATURE_COLLECTION:
+
+                    // ignore the features information
+                    final List<Map<String, Object>> features = List.class.cast(in.get(Constants.GEOJSON_FEATURES));
+                    return new GeometryCollection(features.stream()
+                            .map(IGeometryObjectFactory::fromGeoJsonMap)
+                            .collect(Collectors.toList()));
+                case Constants.GEOJSON_TYPE_FEATURE:
+
+                    // ignore the feature information
+                    final Map<String, Object> geometry = Map.class.cast(in.get(Constants.GEOJSON_GEOMETRY));
+                    return fromGeoJsonMap(geometry);
+
+                default:
+                    throw new GeoJsonException("Can't understand type " + type);
+            }
         }
     }
 
